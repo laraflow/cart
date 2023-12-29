@@ -3,8 +3,8 @@
 namespace Laraflow\Cart;
 
 use Illuminate\Support\ServiceProvider;
-use Laraflow\Cart\Commands\InstallCommand;
 use Laraflow\Cart\Commands\CartCommand;
+use Laraflow\Cart\Commands\InstallCommand;
 
 class CartServiceProvider extends ServiceProvider
 {

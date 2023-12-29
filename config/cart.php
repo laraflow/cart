@@ -7,35 +7,92 @@ return [
     |--------------------------------------------------------------------------
     | Enable Module APIs
     |--------------------------------------------------------------------------
-    | This setting enable the API will be available or not
+    | This setting will publish the cart communication route to the system.
     */
-    'enabled' => env('PACKAGE_Cart_ENABLED', true),
+    'api_enabled' => env('CART_API_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
-    | Cart Group Root Prefix
+    | Cart Driver
     |--------------------------------------------------------------------------
-    |
-    | This value will be added to all your routes from this package
-    | Example: APP_URL/{root_prefix}/api/cart/action
-    |
-    | Note: while adding prefix add closing ending slash '/'
+    | Cart content will be store and retrieved using this driver
+    | available drivers are session and database
     */
-
-    'root_prefix' => 'test/',
-
-    //** Model Config Point Do not Remove **//
+    'driver' => 'session',
 
     /*
     |--------------------------------------------------------------------------
-    | Repositories
+    | Currency
     |--------------------------------------------------------------------------
-    |
-    | This value will be used across systems where a repositoy instance is needed
+    | When displaying the prices which currency symbols and format will be used
+    | @see https://www.iban.com/currency-codes for available options
     */
+    'currency' => 'USD',
 
-    'repositories' => [
-        //** Repository Binding Config Point Do not Remove **//
+    /*
+    |--------------------------------------------------------------------------
+    | Currency Symbol
+    |--------------------------------------------------------------------------
+    | When displaying the prices do system will add currency symbol
+    | if available or not.
+    */
+    'show_currency_symbol' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cart Item Add method parameters
+    |--------------------------------------------------------------------------
+    | This array will be converted to parameters of Cart::add() method
+    | if key has a value that will be considered as default value else the
+    | field will be considered as a required parameter.
+    |
+    | Example: Cart::add($name, $quantity = 1, $price, $weight = null, $options = []);
+    */
+    'cart_item_attributes' => [
+        'name',
+        'quantity' => 1,
+        'price',
+        'weight' => null,
+        'options' => [],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Cart Item Unit Price Field
+    |--------------------------------------------------------------------------
+    | Which field from cart item attributes will be considered for unit price
+    | calculation.
+    | Note: This field will be considered must available attributes
+    */
+    'price_field' => 'price',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cart Item Quantity Field
+    |--------------------------------------------------------------------------
+    | Which field from cart item attributes will be considered quantity identifier
+    | Note: This field will be considered must available attributes
+    */
+    'quantity_field' => 'quantity',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cart Item Discount Field
+    |--------------------------------------------------------------------------
+    | Which field from cart item attributes will be considered discount identifier
+    | both "flat" and "percent" is allowed
+    | Example: 100.00 or 10%
+    | Note: This field will be considered must available attributes
+    */
+    'discount_field' => 'discount',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Multiple Items Wrapper Field
+    |--------------------------------------------------------------------------
+    | While inserting bulk items to cart
+    |
+    | Example: Cart::addMany($items);
+    */
+    'collection_field' => 'items',
 ];

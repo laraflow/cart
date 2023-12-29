@@ -5,14 +5,15 @@ namespace Laraflow\Cart\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * // Crud Service Method Point Do not Remove //
  *
+ * @method static array validationRules()
+ * @method static bool validate(array $inputs)
  * @see \Laraflow\Cart\Cart
  */
 class Cart extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
-        return \Laraflow\Cart\Cart::class;
+        return 'cart';
     }
 }

@@ -2,25 +2,26 @@
 
 namespace Laraflow\Cart;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Laraflow\Cart\Commands\InstallCommand;
-use Laraflow\Cart\Commands\CartCommand;
 
-class CartServiceProvider extends ServiceProvider
+class CartServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/cart.php', 'fintech.cart'
+            __DIR__ . '/../config/cart.php', 'cart'
         );
 
+        $this->app->singleton('cart', fn($app) => new Cart());
+
         $this->app->register(RouteServiceProvider::class);
-        $this->app->register(RepositoryServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**
@@ -29,28 +30,32 @@ class CartServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/cart.php' => config_path('fintech/cart.php'),
+            __DIR__ . '/../config/cart.php' => config_path('fintech/cart.php'),
         ]);
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'cart');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'cart');
 
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/cart'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/cart'),
         ]);
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'cart');
+//        if ($this->app->runningInConsole()) {
+//            $this->commands([
+//                InstallCommand::class,
+//                CartCommand::class,
+//            ]);
+//        }
+    }
 
-        $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/cart'),
-        ]);
-
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                InstallCommand::class,
-                CartCommand::class,
-            ]);
-        }
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides(): array
+    {
+        return ['cart', Cart::class];
     }
 }

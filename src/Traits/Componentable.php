@@ -1,6 +1,7 @@
 <?php
 
 namespace Laraflow\Cart\Traits;
+
 use BadMethodCallException;
 use Illuminate\Support\Arr;
 
@@ -8,28 +9,20 @@ trait Componentable
 {
     /**
      * The registered components.
-     *
-     * @var array
      */
     protected static array $components = [];
 
     /**
      * Register a custom component.
-     *
-     * @param    $name
-     * @param array $signature
-     * @return void
      */
     public static function component($name, array $signature): void
     {
-        static::$components[$name] = compact( 'signature');
+        static::$components[$name] = compact('signature');
     }
 
     /**
      * Dynamically handle calls to the class.
      *
-     * @param string $method
-     * @param array $parameters
      * @return mixed
      *
      * @throws BadMethodCallException
@@ -45,9 +38,6 @@ trait Componentable
 
     /**
      * Check if a component is registered.
-     *
-     * @param $name
-     * @return bool
      */
     public static function hasComponent($name): bool
     {
@@ -57,8 +47,6 @@ trait Componentable
     /**
      * Render a custom component.
      *
-     * @param    $name
-     * @param  array  $arguments
      * @return View|HtmlString
      */
     protected function renderComponent($name, array $arguments)
@@ -66,15 +54,11 @@ trait Componentable
         $component = static::$components[$name];
         $data = $this->getComponentData($component['signature'], $arguments);
 
-//        return ;
+        //        return ;
     }
 
     /**
      * Prepare the component data, while respecting provided defaults.
-     *
-     * @param  array  $signature
-     * @param  array  $arguments
-     * @return array
      */
     protected function getComponentData(array $signature, array $arguments): array
     {

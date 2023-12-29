@@ -10,7 +10,7 @@ use Laraflow\Cart\Traits\Componentable;
 
 class Cart
 {
-    use Macroable, Componentable {
+    use Componentable, Macroable {
         Macroable::__call as macroCall;
         Componentable::__call as componentCall;
     }
@@ -22,7 +22,6 @@ class Cart
 
     /**
      * Return all configured rules for cart item storing
-     * @return array
      */
     public static function validationRules(): array
     {
@@ -32,7 +31,7 @@ class Cart
             config('cart.price_field', 'price') => ['required', 'numeric', 'min:0'],
             config('cart.quantity_field', 'quantity') => ['required', 'numeric', 'min:0'],
             config('cart.discount_field', 'discount') => ['nullable', 'numeric', 'min:0'],
-            $multiple_item_wrapper => 'array|nullable'
+            $multiple_item_wrapper => 'array|nullable',
         ];
 
         $reserved_attributes = array_keys($rules);
@@ -40,11 +39,11 @@ class Cart
         foreach (config('cart.cart_item_attributes') as $key => $attribute) {
 
             if (is_int($key)) {
-                if (!in_array($attribute, $reserved_attributes)) {
+                if (! in_array($attribute, $reserved_attributes)) {
                     $rules[$attribute][] = ['required'];
                 }
             } else {
-                if (!in_array($key, $reserved_attributes)) {
+                if (! in_array($key, $reserved_attributes)) {
                     $rules[$key][] = ['required'];
                 }
             }
@@ -77,8 +76,8 @@ class Cart
     /**
      * Dynamically handle calls to the class.
      *
-     * @param string $method
-     * @param array $parameters
+     * @param  string  $method
+     * @param  array  $parameters
      * @return mixed
      *
      * @throws BadMethodCallException

@@ -1,14 +1,14 @@
 <?php
 
-namespace VendorName\Skeleton\Exceptions;
+namespace Laraflow\Cart\Exceptions;
 
 use Exception;
 use Throwable;
 
 /**
- * Class SkeletonException
+ * Class CartException
  */
-class SkeletonException extends Exception
+class CartException extends Exception
 {
     /**
      * CoreException constructor.

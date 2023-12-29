@@ -1,6 +1,6 @@
 <?php
 
-// config for VendorName/Skeleton
+// config for Laraflow/Cart
 return [
 
     /*
@@ -9,15 +9,15 @@ return [
     |--------------------------------------------------------------------------
     | This setting enable the API will be available or not
     */
-    'enabled' => env('PACKAGE_Skeleton_ENABLED', true),
+    'enabled' => env('PACKAGE_Cart_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
-    | Skeleton Group Root Prefix
+    | Cart Group Root Prefix
     |--------------------------------------------------------------------------
     |
     | This value will be added to all your routes from this package
-    | Example: APP_URL/{root_prefix}/api/skeleton/action
+    | Example: APP_URL/{root_prefix}/api/cart/action
     |
     | Note: while adding prefix add closing ending slash '/'
     */

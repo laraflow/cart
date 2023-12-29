@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Laraflow\Cart;
 
 use Illuminate\Support\ServiceProvider;
-use VendorName\Skeleton\Commands\InstallCommand;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use Laraflow\Cart\Commands\InstallCommand;
+use Laraflow\Cart\Commands\CartCommand;
 
-class SkeletonServiceProvider extends ServiceProvider
+class CartServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -16,7 +16,7 @@ class SkeletonServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/skeleton.php', 'fintech.skeleton'
+            __DIR__.'/../config/cart.php', 'fintech.cart'
         );
 
         $this->app->register(RouteServiceProvider::class);
@@ -29,27 +29,27 @@ class SkeletonServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/skeleton.php' => config_path('fintech/skeleton.php'),
+            __DIR__.'/../config/cart.php' => config_path('fintech/cart.php'),
         ]);
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'skeleton');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'cart');
 
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/skeleton'),
+            __DIR__.'/../lang' => $this->app->langPath('vendor/cart'),
         ]);
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'skeleton');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'cart');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/skeleton'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/cart'),
         ]);
 
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
-                SkeletonCommand::class,
+                CartCommand::class,
             ]);
         }
     }

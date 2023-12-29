@@ -1,18 +1,18 @@
 <?php
 
-namespace VendorName\Skeleton\Facades;
+namespace Laraflow\Cart\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * // Crud Service Method Point Do not Remove //
  *
- * @see \VendorName\Skeleton\Skeleton
+ * @see \Laraflow\Cart\Cart
  */
-class Skeleton extends Facade
+class Cart extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \VendorName\Skeleton\Skeleton::class;
+        return \Laraflow\Cart\Cart::class;
     }
 }

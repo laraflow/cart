@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Laraflow\Cart\Commands;
 
 use Illuminate\Console\Command;
 
 class InstallCommand extends Command
 {
-    public $signature = 'skeleton:install';
+    public $signature = 'cart:install';
 
     public $description = 'My command';
 

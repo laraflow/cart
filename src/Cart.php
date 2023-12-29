@@ -1,8 +1,8 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Laraflow\Cart;
 
-class Skeleton
+class Cart
 {
     //** Crud Service Method Point Do not Remove **//
 }
